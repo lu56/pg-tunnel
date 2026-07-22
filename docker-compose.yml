@@ -9,10 +9,13 @@ services:
     network_mode: host
     restart: unless-stopped
     environment:
-      - TUNNEL_PUBLIC_KEY=${TUNNEL_PUBLIC_KEY}
+      # TUNNEL_PUBLIC_KEY 可选：不填则容器自动生成密钥对
+      - TUNNEL_PUBLIC_KEY=${TUNNEL_PUBLIC_KEY:-}
       - SSH_PORT=${SSH_PORT:-2222}
       - PG_HOST=${PG_HOST:-localhost}
       - PG_PORT=${PG_PORT:-15432}
     volumes:
       # SSH host keys 持久化，容器重建后 host key 不变
       - ./host_keys:/etc/ssh/host_keys
+      # 隧道密钥对持久化：自动生成的私钥和公钥存这里
+      - ./keys:/keys

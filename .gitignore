@@ -11,6 +11,9 @@ id_*
 # SSH server host keys (generated at runtime, persisted via volume)
 host_keys/
 
+# Auto-generated tunnel key pair (persisted via volume)
+keys/
+
 # Synology metadata
 @eaDir/
 .DS_Store
