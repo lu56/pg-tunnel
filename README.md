@@ -3,10 +3,10 @@ AIGC:
   ContentProducer: '001191110102MAD55U9H0F10002'
   ContentPropagator: '001191110102MAD55U9H0F10002'
   Label: '1'
-  ProduceID: '2db7b1c8-9713-4629-9974-c3fcec436af5'
-  PropagateID: '2db7b1c8-9713-4629-9974-c3fcec436af5'
-  ReservedCode1: '8d678729-dd90-4b83-b3f2-0d13db8fe8d6'
-  ReservedCode2: '8d678729-dd90-4b83-b3f2-0d13db8fe8d6'
+  ProduceID: '7b388bfc-0edf-4aab-b5d6-005aa767ca16'
+  PropagateID: '7b388bfc-0edf-4aab-b5d6-005aa767ca16'
+  ReservedCode1: 'eb1ea809-3ae1-4dcd-9a4b-9d45d7bfaf80'
+  ReservedCode2: 'eb1ea809-3ae1-4dcd-9a4b-9d45d7bfaf80'
 ---
 
 # pg-tunnel
@@ -67,7 +67,6 @@ push tag `v*` → 自动构建版本号标签（如 `v1.0.0`）
 | 转发锁定 | PermitOpen only PG_HOST:PG_PORT，AllowTcpForwarding local |
 | 其他全关 | X11/TTY/GatewayPorts/AgentForwarding/StreamLocal 全部禁止 |
 | 加密套件 | 仅 curve25519/chacha20/aes-gcm，拒绝弱算法 |
-| 空闲超时 | 5 分钟无活动自动断开（ClientAliveInterval=300） |
 | 私钥安全 | 私钥不在镜像中，仅在客户端；公钥通过环境变量注入 |
 | host keys | 持久化在 volume 中，容器重建不变；不入 Git |
 
