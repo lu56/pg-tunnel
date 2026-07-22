@@ -1,4 +1,4 @@
-Port 2222
+Port __SSH_PORT__
 ListenAddress 0.0.0.0
 
 HostKey /etc/ssh/host_keys/ssh_host_ed25519_key
@@ -7,6 +7,7 @@ HostKey /etc/ssh/host_keys/ssh_host_rsa_key
 # 认证：密钥 only
 PermitRootLogin no
 PasswordAuthentication no
+KbdInteractiveAuthentication no
 PubkeyAuthentication yes
 AuthorizedKeysFile .ssh/authorized_keys
 
@@ -14,6 +15,16 @@ AuthorizedKeysFile .ssh/authorized_keys
 AllowUsers pg-tunnel
 AllowTcpForwarding no
 AllowStreamLocalForwarding no
+
+# 加密套件：只用现代算法，拒绝弱算法
+KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group16-sha512
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com
+MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com
+HostKeyAlgorithms ssh-ed25519,rsa-sha2-512,rsa-sha2-256
+
+# 空闲超时：5 分钟无活动断开
+ClientAliveInterval 300
+ClientAliveCountMax 0
 
 # 日志
 SyslogFacility AUTH
@@ -27,4 +38,4 @@ Match User pg-tunnel
     X11Forwarding no
     GatewayPorts no
     AllowAgentForwarding no
-    PermitOpen localhost:15432
+    PermitOpen __PG_HOST__:__PG_PORT__

@@ -12,6 +12,4 @@ COPY sshd_config /etc/ssh/sshd_config
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-EXPOSE 2222
-
 ENTRYPOINT ["/entrypoint.sh"]

@@ -24,6 +24,18 @@ fi
 chown pg-tunnel:tunnel "$AUTH_KEYS"
 chmod 600 "$AUTH_KEYS"
 
+# 从环境变量读取配置，有默认值
+SSH_PORT="${SSH_PORT:-2222}"
+PG_HOST="${PG_HOST:-localhost}"
+PG_PORT="${PG_PORT:-15432}"
+
+# 运行时替换 sshd_config 中的占位符
+sed -i \
+    -e "s/__SSH_PORT__/${SSH_PORT}/" \
+    -e "s/__PG_HOST__/${PG_HOST}/" \
+    -e "s/__PG_PORT__/${PG_PORT}/" \
+    /etc/ssh/sshd_config
+
 # 校验配置
 /usr/sbin/sshd -t
 
