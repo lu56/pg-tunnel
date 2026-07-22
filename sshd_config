@@ -1,0 +1,30 @@
+Port 2222
+ListenAddress 0.0.0.0
+
+HostKey /etc/ssh/host_keys/ssh_host_ed25519_key
+HostKey /etc/ssh/host_keys/ssh_host_rsa_key
+
+# 认证：密钥 only
+PermitRootLogin no
+PasswordAuthentication no
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+
+# 只允许隧道用户
+AllowUsers pg-tunnel
+AllowTcpForwarding no
+AllowStreamLocalForwarding no
+
+# 日志
+SyslogFacility AUTH
+LogLevel INFO
+
+# === 隧道用户专用限制 ===
+Match User pg-tunnel
+    AllowTcpForwarding local
+    AllowStreamLocalForwarding no
+    PermitTTY no
+    X11Forwarding no
+    GatewayPorts no
+    AllowAgentForwarding no
+    PermitOpen localhost:15432

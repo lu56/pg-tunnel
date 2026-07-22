@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  pg-tunnel:
+    # 使用 Docker Hub 自动构建的镜像
+    # 将 <DOCKERHUB_USER> 替换为你的 Docker Hub 用户名
+    image: <DOCKERHUB_USER>/pg-tunnel:latest
+    container_name: pg-tunnel
+    # host 网络模式：sshd 直接绑定宿主机网络
+    # PermitOpen localhost:15432 → 直接到达 PG（宿主机端口映射 15432→5432）
+    network_mode: host
+    restart: unless-stopped
+    environment:
+      - TUNNEL_PUBLIC_KEY=${TUNNEL_PUBLIC_KEY}
+    volumes:
+      # SSH host keys 持久化，容器重建后 host key 不变
+      - ./host_keys:/etc/ssh/host_keys
