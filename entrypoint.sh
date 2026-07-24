@@ -11,7 +11,6 @@ mkdir -p "$TUNNEL_KEY_DIR" "$HOST_KEY_DIR"
 if [ ! -f "$HOST_KEY_DIR/ssh_host_ed25519_key" ]; then
     echo "[pg-tunnel] Generating SSH host keys..."
     ssh-keygen -t ed25519 -f "$HOST_KEY_DIR/ssh_host_ed25519_key" -N '' -q
-    ssh-keygen -t rsa -b 4096 -f "$HOST_KEY_DIR/ssh_host_rsa_key" -N '' -q
 fi
 chmod 600 "$HOST_KEY_DIR"/*
 

@@ -2,7 +2,6 @@ Port __SSH_PORT__
 ListenAddress 0.0.0.0
 
 HostKey /etc/ssh/host_keys/ssh_host_ed25519_key
-HostKey /etc/ssh/host_keys/ssh_host_rsa_key
 
 # 认证：密钥 only
 PermitRootLogin no
@@ -10,6 +9,12 @@ PasswordAuthentication no
 KbdInteractiveAuthentication no
 PubkeyAuthentication yes
 AuthorizedKeysFile .ssh/authorized_keys
+
+# 加密算法：只允许现代强算法
+KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr
+MACs hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com
+HostKeyAlgorithms ssh-ed25519
 
 # 只允许隧道用户
 AllowUsers pg-tunnel
